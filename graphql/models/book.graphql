@@ -1,0 +1,41 @@
+
+
+extend type Query {
+
+
+    books(id: ID @eq): [Book!]! @paginate(defaultCount: 10)
+
+    book(id: ID! @eq): Book @find
+}
+
+extend type Mutation {
+    createBook(
+        title: String!
+        description: String!
+        rating: Float!
+        user_id: ID!
+    ): Book @create
+
+    updateBook(
+        id: ID! @eq
+        title: String
+        description: String
+        rating: Float
+        user_id: ID
+    ): Book @update
+
+    deleteBook(
+        id: ID! @eq
+    ): Book @delete(model: "Book")
+}
+
+type Book {
+    id: ID! @select(columns : ["id"])
+    title: String! @select(columns : ["title"])
+    description: String!
+    rating: Float!
+    user: User! @belongsTo
+    quotes: [quote!]! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}

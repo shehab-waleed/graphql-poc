@@ -1,0 +1,38 @@
+
+
+
+type quote {
+    id: ID!
+    book: Book! @belongsTo
+    content: String!
+    page_number: Int!
+    start_index: Int!
+    end_index: Int!
+}
+
+extend type Query {
+    quotes(id: ID @eq): [quote!]! @paginate(defaultCount: 10)
+}
+
+extend type Mutation {
+    createQuote(
+        book_id: ID!
+        content: String!
+        page_number: Int!
+        start_index: Int!
+        end_index: Int!
+    ): quote @create
+
+    updateQuote(
+        id: ID! @eq
+        book_id: ID
+        content: String
+        page_number: Int
+        start_index: Int
+        end_index: Int
+    ): quote @update
+
+    deleteQuote(
+        id: ID! @eq
+    ): quote @delete
+}
