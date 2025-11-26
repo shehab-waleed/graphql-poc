@@ -30,8 +30,8 @@ extend type Mutation {
 }
 
 type Book {
-    id: ID! @select(columns : ["id"])
-    title: String! @select(columns : ["title"])
+    id: ID!
+    title: String!
     description: String!
     rating: Float!
     user: User! @belongsTo
